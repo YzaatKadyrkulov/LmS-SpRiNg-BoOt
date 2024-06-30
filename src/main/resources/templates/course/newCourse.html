@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .card {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card h1 {
+            text-align: center;
+        }
+        .card p {
+            margin: 10px 0;
+        }
+        .card label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .card input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .card button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Add Course</h1>
+    <form th:method="POST" th:action="@{/course/{companyId}/save (companyId=${companyId})}" th:object="${newCourse}">
+<!--        <div class="container">-->
+<!--            <hr>-->
+<!--            <input type="hidden" name="id" th:field="*{company.id}">-->
+<!--        </div>-->
+        <p>
+            <label for="name">Course Name:</label>
+            <input type="text" th:field="*{courseName}" id="name" required="required" placeholder="Enter course name" />
+        </p>
+        <p>
+            <label for="number">Course Description:</label>
+            <input type="text" th:field="*{description}" id="number" required="required" placeholder="Enter course description" />
+        </p>
+        <p>
+            <label for="year">Founding Date:</label>
+            <input type="date" th:field="*{dateOfStart}" id="year" required="required" placeholder="Enter founding date" />
+        </p>
+        <p>
+            <button type="submit">Save Course</button>
+        </p>
+    </form>
+</div>
+
+</body>
+</html>

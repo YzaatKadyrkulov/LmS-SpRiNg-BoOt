@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Group Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            padding: 20px;
+        }
+        .top-buttons {
+            margin-bottom: 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .top-buttons .btn-left {
+            float: left;
+            transition: transform 0.3s ease; /* Added transition property */
+        }
+        .top-buttons .btn-right {
+            float: right;
+            transition: transform 0.3s ease; /* Added transition property */
+        }
+        .top-buttons a {
+            /*color: #007bff;*/
+            border: 2px solid #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .top-buttons a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .list-info {
+            font-weight: bold;
+            color: blue;
+            border: 2px solid blue;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .list-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: -10px; /* Negative margin to counteract padding of individual items */
+        }
+        .list-group-item {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            border: 4px solid black; /* Added border */
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            max-width: 400px;
+            padding: 20px;
+            flex: 0 0 calc(33.33% - 20px); /* Adjust width for three items per row */
+            margin: 10px; /* Added margin to separate items */
+        }
+        .list-group-item:hover {
+            transform: scale(1.05);
+        }
+        .list-group-item img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .list-group-item-content {
+            padding: 15px 0;
+        }
+        .list-group-item-title {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            color: #343a40;
+        }
+        .list-group-item-description {
+            color: #6c757d;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-top: 10px;
+        }
+        .buttons-container .btn {
+            margin-left: 10px;
+            border-radius: 3px;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="top-buttons">
+        <a th:href="@{/companies/lets/{companyId} (companyId=${companyId})}" class="btn btn-primary btn-left">  Go back</a>
+        <a th:href="@{/groups/{companyId}/new(companyId=${companyId})}" class="btn btn-primary btn-right"> + Add New Group</a>
+        <div>
+            <a th:text="'Number of groups in this company: ' + ${#lists.size(companyGroups)}" class="list-info"></a>
+        </div>
+    </div>
+
+    <ul class="list-group">
+        <li class="list-group-item" th:each="group : ${companyGroups}">
+            <img class="list-group-item-image" th:src="${group.imageLink}" alt="Group Image">
+            <div class="list-group-item-content">
+                <h5 class="list-group-item-title" th:text="${group.groupName}">Group name</h5>
+                <p class="list-group-item-description" th:text="${group.description}">Group description</p>
+            </div>
+            <div class="buttons-container">
+                <a th:href="@{/groups/{companyId}/{groupId}/get (companyId=${companyId},groupId=${group.id})}" class="btn btn-warning">Update</a>
+                <a th:href="@{/students/{companyId}/{groupId} (companyId=${companyId},groupId=${group.id})}" class="btn btn-success">Students</a>
+                <a th:href="@{/groups/{companyId}/{groupId}/courses (companyId=${companyId},groupId=${group.id})}" class="btn btn-success">Course</a>
+                <form th:method="get" th:action="@{/groups/{companyId}/delete/{groupId}(companyId=${companyId},groupId=${group.id})}" onsubmit="return confirmDeletion()" class="form-inline">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script>
+    function confirmDeletion() {
+        return confirm('Are you sure you want to delete this group?');
+    }
+</script>
+</body>
+</html>

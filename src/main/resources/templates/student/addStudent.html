@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .card {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card h1 {
+            text-align: center;
+        }
+        .card p {
+            margin: 10px 0;
+        }
+        .card label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .card input,
+        .card select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .card button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Add Student</h1>
+    <form th:method="POST" th:action="@{/students/{companyId}/{groupId}/save(companyId=${companyId},groupId=${groupId})}" th:object="${newStudent}">
+        <p>
+            <label for="name">Student first name:</label>
+            <input type="text" th:field="*{firstName}" id="name" required="required" placeholder="Enter first name" />
+        </p>
+        <p>
+            <label for="number">Student last name:</label>
+            <input type="text" th:field="*{lastName}" id="number" required="required" placeholder="Enter last name" />
+        </p>
+        <p>
+            <label for="year">Phone number:</label>
+            <input type="text" th:field="*{phoneNumber}" id="year" required="required" placeholder="Enter phone number" />
+        </p>
+
+        <p>
+            <label for="email">Email:</label>
+            <input type="text" th:field="*{email}" id="email" required="required" placeholder="Enter email" />
+        </p>
+        <p>
+            <label for="study">Format Study:</label>
+            <select th:field="*{formatStudy}" id="study" required="required">
+                <option value="" disabled selected>Select format study</option>
+                <option value="ONLINE">Online</option>
+                <option value="OFFLINE">Offline</option>
+            </select>
+        </p>
+
+        <p>
+            <button type="submit">Save Student</button>
+        </p>
+    </form>
+</div>
+
+</body>
+</html>

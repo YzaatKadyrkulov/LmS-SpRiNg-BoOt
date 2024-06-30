@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .list-group-item {
+            border: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .list-group-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom {
+            background-color: #007bff; /* Changed to blue */
+            color: white;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3; /* Changed to darker blue */
+        }
+
+        .btn-warning {
+            background-color: #ffc107; /* Changed to yellow */
+            color: black;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800; /* Changed to darker yellow */
+        }
+
+        .btn-primary {
+            background-color: #218838; /* Changed to green */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e7e34; /* Changed to darker green */
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .list-group-item-title {
+            color: #343a40;
+            font-size: 1.25rem;
+        }
+
+        .btn-group {
+            display: flex;
+        }
+
+        .btn {
+            flex: 1;
+            margin-right: 5px;
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .form-inline {
+            display: inline;
+        }
+
+        /* Added CSS for positioning buttons */
+        .btn-top-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .btn-top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Center text style */
+        .center-text {
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #007bff; /* Blue border */
+            padding: 10px; /* Padding */
+            border-radius: 8px; /* Rounded border */
+            animation: border-color-change 1s infinite alternate; /* Border color animation */
+        }
+
+        @keyframes border-color-change {
+            0% {
+                border-color: #007bff;
+            }
+            100% {
+                border-color: #ff7f00; /* Another color */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="center-text mt-3" th:text="'Number of lessons in this course: ' + ${#lists.size(allLessons)}"></div>
+    <ul class="list-group">
+        <li class="list-group-item" th:each="lesson : ${allLessons}">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="list-group-item-title" th:text="${lesson.lessonName}">Lesson name</h5>
+                <div class="btn-group">
+                    <a th:href="@{/tasks/{companyId}/{courseId}/{lessonId} (companyId=${companyId},courseId=${courseId},lessonId=${lesson.id})}" class="btn btn-primary">Tasks</a>
+                    <a th:href="@{/lessons/{companyId}/{courseId}/{lessonId}/get (companyId=${companyId},courseId=${courseId},lessonId=${lesson.id})}" class="btn btn-warning">Update</a>
+                    <form th:method="get" th:action="@{/lessons/{companyId}/{courseId}/delete/{lessonId}(companyId=${companyId},courseId=${courseId},lessonId=${lesson.id})}" onsubmit="return confirmDeletion()">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- Button for adding a new lesson in top right corner -->
+<a th:href="@{/lessons/{companyId}/{courseId}/new(companyId=${companyId},courseId=${courseId})}" class="btn btn-custom btn-top-right">Add New Lesson</a>
+
+<!-- Button for going back in top left corner -->
+<a th:href="@{/course/{companyId} (companyId=${companyId})}" class="btn btn-custom btn-top-left">Go Back</a>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmDeletion() {
+        return confirm('Are you sure you want to delete this lesson?');
+    }
+</script>
+</body>
+</html>

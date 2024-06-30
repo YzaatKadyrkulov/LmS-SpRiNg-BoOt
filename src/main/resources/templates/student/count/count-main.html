@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .btn-group {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .spacer {
+            margin: 0 10px;
+        }
+
+        .btn-green {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-green:hover {
+            background-color: #218838;
+        }
+
+        .btn-green:focus {
+            background-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <br>
+    <br>
+    <br>
+    <div class="btn-group mt-4">
+        <a th:href="@{/students/{companyId}/getAllFromCompany(companyId=${companyId})}" class="btn btn-green">All students</a>
+        <span class="spacer"></span>
+        <a th:href="@{/students/{companyId}/offline(companyId=${companyId})}" class="btn btn-green">Offline</a>
+        <span class="spacer"></span>
+        <a th:href="@{/students/{companyId}/online(companyId=${companyId})}" class="btn btn-green">Online</a>
+    </div>
+
+    <div class="mt-4 position-absolute top-0 start-0">
+        <a th:href="@{/companies/lets/{companyId}(companyId=${companyId})}" class="btn btn-primary">Go Back</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script>
+    function confirmDeletion() {
+        return confirm('Are you sure you want to delete this instructor?');
+    }
+</script>
+</body>
+</html>

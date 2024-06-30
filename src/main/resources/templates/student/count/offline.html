@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .list-group-item {
+            border: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .list-group-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.5rem !important;
+        }
+
+        .list-group-item-title {
+            color: #343a40;
+            font-size: 1.25rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .form-inline {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div th:text="'Number of offline students in this company: ' + ${#lists.size(all)}"></div>
+    <div th:text="'Company ID: ' + ${companyId}"></div>
+
+    <ul class="list-group">
+        <li class="list-group-item" th:each="student : ${all}">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-1" th:text="${student.lastName} + ' ' + ${student.firstName}"></h5>
+                <div>
+                    <div class="card-body">
+                        <a th:href="@{/students/{companyId}/{groupId}/{studentId}/more3 (companyId=${companyId},groupId=${student.group.id},studentId=${student.id})}" class="btn btn-warning btn-block">more</a>
+
+                    </div>
+                    <a th:href="@{/students/{companyId}/{groupId}/{studentId}/get(companyId=${companyId},groupId=${student.group.id},studentId=${student.id})}" class="btn btn-warning btn-block">Update</a>
+                    <form th:method="get" th:action="@{/students/{companyId}/{groupId}/{studentId}/delete(companyId=${companyId},groupId=${student.group.id},studentId=${student.id})}" onsubmit="return confirmDeletion()" class="form-inline">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <input type="submit" class="btn btn-danger btn-block" value="Delete"/>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="container mt-5 text-center">
+    <a th:href="@{/students/{companyId}/get/all(companyId=${companyId})}" class="btn btn-custom">Go Back</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmDeletion() {
+        return confirm('Are you sure you want to delete this lesson?');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            background-color: #e9ecef; /* Subtle background color change on hover */
+        }
+
+        .card-title {
+            color: #343a40;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fixed-top-left {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: black; /* text color */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${'Full name: '+findStudent.lastName + ' ' + findStudent.firstName}"></h5>
+            <p class="card-text" th:text="${'Phone: ' + findStudent.phoneNumber}"></p>
+            <p class="card-text" th:text="${'Email: ' + findStudent.email}"></p>
+            <p class="card-text" th:text="${'Format study: ' + findStudent.formatStudy}"></p>
+            <p class="card-text" th:text="${'Studemt group: ' + findStudent.group.groupName}"></p>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <!-- "Go Back" link in the top left corner -->
+    <a th:href="@{/students/{companyId}/{groupId}(companyId=${companyId},groupId=${groupId})}" class="btn btn-primary fixed-top-left"> Go Back</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

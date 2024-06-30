@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Create Task</h1>
+<form th:method="POST" th:action="@{/tasks/{companyId}/{courseId}/{lessonId}/update/{taskId}(companyId=${companyId},courseId=${courseId},lessonId=${lessonId},taskId=${newTask.id})}" th:object="${newTask}">
+    <p>
+        <label for="taskName">Task name:</label>
+        <input type="text" th:field="*{taskName}" id="taskName" required="required" placeholder="Enter task name"/>
+    </p>
+
+    <p>
+        <label for="taskText">Description:</label>
+        <input type="text" th:field="*{taskText}" id="taskText" required="required" placeholder="Enter task description"/>
+    </p>
+
+    <p>
+        <label for="deadline">Deadline:</label>
+        <input type="date" th:field="*{deadline}" id="deadline" required="required" placeholder="Enter task deadline"/>
+    </p>
+
+    <p>
+        <button type="submit">Update Task</button>
+    </p>
+</form>
+</body>
+
+</html>

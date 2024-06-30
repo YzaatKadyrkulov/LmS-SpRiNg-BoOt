@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar-brand {
+            color: white !important;
+            text-decoration: none !important;
+            background-color: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .navbar-brand:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            padding-top: 80px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            transition: transform 0.3s;
+            height: auto;
+            width: 100%;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .photo img {
+            max-height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+        .card-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .card-text {
+            margin-bottom: 15px;
+        }
+        .btn {
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .btn-enter {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-enter:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .btn-add {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-add:hover {
+            background-color: #0069d9;
+            border-color: #005cbf;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/main"> &lt;  Go back</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/companies/new" class="btn btn-add"> + Add New Company</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Loop through your companies here -->
+        <div class="col" th:each="company:${allCompanies}">
+            <div class="card h-100">
+                <div class="photo">
+                    <img th:src="${company.imageLink}" class="card-img-top" alt="Photo">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${'Company : '+company.name}">Company Name</h5>
+                    <!--                    <p class="card-text" th:text="${company.}">Company Description</p>-->
+                    <p class="card-text" th:text="${'Address : '+company.address}">Company Address</p>
+                    <p class="card-text" th:text="${'Country : '+company.country}">Country</p>
+                    <p class="card-text" th:text="${'Phone number : '+company.phoneNumber}">Phone Number</p>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{/companies/lets/{companyId}(companyId=${company.id})}" class="btn btn-enter">Enter</a>
+                    <a th:href="@{/companies/{id}/update(id=${company.id})}" class="btn btn-warning">Update</a>
+                    <form th:method="get" th:action="@{/companies/{id}/delete(id=${company.getId()})}" onsubmit="return confirmDeletion()" class="d-inline-block">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="submit" class="btn btn-danger" value="Delete"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End loop -->
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Y " crossorigin="anonymous"></script>
+<script>
+    function confirmDeletion() {
+        return confirm('Are you sure you want to delete this company?');
+    }
+</script>
+</body>
+</html>

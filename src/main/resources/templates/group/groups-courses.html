@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course List In Group</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавление теней */
+            transition: transform 0.2s; /* Плавный эффект при наведении */
+        }
+
+        .card:hover {
+            transform: scale(1.05); /* Увеличение карточки при наведении */
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <!-- Отладочный вывод количества курсов -->
+    <div th:text="'Number of courses in this group: ' + ${#lists.size(allCourse)}"></div>
+    <!-- Отладочный вывод значения companyId -->
+    <div th:text="'Group ID: ' + ${groupId}"></div>
+
+    <div class="row">
+        <!-- Исправленная ошибка: th:each="course : ${allCourses}" -->
+        <div class="col-md-4 mb-4" th:each="course : ${allCourse}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${course.courseName}">Course name</h5>
+                    <p class="card-text">
+                        <strong>Description:</strong> <span th:text="${course.description}">Description</span><br>
+                        <strong>Start Date:</strong> <span th:text="${course.dateOfStart}">Start Date</span><br>
+                    </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <!-- Исправленная ошибка: удалены лишние пробелы после "/new" -->
+    <a th:href="@{/groups/{companyId}(companyId=${comId})}" class="btn btn-custom">Go Back</a>
+</div>
+<div class="container mt-5">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

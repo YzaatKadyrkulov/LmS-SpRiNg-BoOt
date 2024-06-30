@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .list-group-item {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            border-radius: 8px;
+            margin-bottom: 16px; /* Increased margin */
+            padding: 20px; /* Increased padding */
+            font-size: 1.2rem; /* Increased font size */
+        }
+
+        .list-group-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            background-color: #e9ecef; /* Subtle background color change on hover */
+        }
+
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px; /* Increased padding */
+            font-size: 1.1rem; /* Increased font size */
+            transition: background-color 0.3s; /* Color transition */
+        }
+
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+
+
+        .list-group-item-title {
+            color: #343a40;
+            font-size: 1.3rem; /* Increased font size */
+        }
+
+        .fixed-top-left {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: black; /* text color */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" th:each="student : ${findStudent}">
+            <div>
+                <h5 class="mb-1 list-group-item-title" th:text="${findStudent.lastName} + ' ' + ${findStudent.firstName}"></h5>
+            </div>
+            <div class="btn-group">
+                <p class="mb-1" th:text="${findStudent.formatStudy}"></p>
+                <p class="mb-1" th:text="${findStudent.phoneNumber}"></p>
+                <p class="mb-1" th:text="${findStudent.phoneNumber}"></p>
+                <p class="mb-1" th:text="${findStudent.group.groupName}"></p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="container mt-5">
+    <!-- "Go Back" link in the top left corner -->
+    <a th:href="@{/students/{companyId}/getAllFromCompany(companyId=${companyId})}" class="btn btn-custom fixed-top-left"> Go Back</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

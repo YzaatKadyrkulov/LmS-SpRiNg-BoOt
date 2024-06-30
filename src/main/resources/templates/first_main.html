@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .car1 {
+            margin: 10px;
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car1:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .car1 a {
+            display: block;
+            padding: 20px 40px;
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            background: #ff5f6d;
+            background: linear-gradient(to right, #ff5f6d, #ffc371);
+            border: none;
+            border-radius: 12px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .car1 a:hover {
+            background: #ffc371;
+            background: linear-gradient(to right, #ffc371, #ff5f6d);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<button class="car1">
+    <a th:href="@{/companies/allCompany}" class="btn btn-success">Company</a>
+</button>
+
+<button class="car1">
+    <a th:href="@{/instructors}" class="btn btn-success">Instructors</a>
+</button>
+</body>
+</html>

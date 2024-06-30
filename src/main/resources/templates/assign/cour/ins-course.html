@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Instructors to Course</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div th:text="'Number of instructors company: ' + ${#lists.size(allInsInCompany)}"></div>
+
+    <form th:action="@{/instructors/{companyId}/{courseId}/AddInsToCourse (companyId=${companyId}, courseId=${courseId})}" method="POST">
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="instructor : ${allInsInCompany}">
+                    <td>
+                        <input class="form-check-input" type="checkbox" th:id="'instructor_' + ${instructor.id}" th:name="instructorIds" th:value="${instructor.id}">
+                    </td>
+                    <td th:text="${instructor.firstName} + ' ' + ${instructor.lastName}"></td>
+                    <td th:text="${instructor.specialization}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-custom mt-3"> Add Instructor to Course</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <a th:href="@{'/instructors/' + ${companyId} + '/getAll'}" class="btn btn-custom">Go Back</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
